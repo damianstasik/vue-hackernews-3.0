@@ -1,6 +1,6 @@
-# vue-hackernews-2.0
+# vue-hackernews-3.0
 
-HackerNews clone built with Vue 2.0 + vue-router + vuex, with server-side rendering.
+HackerNews clone built with Vue 3.0 + vue-router + vuex.
 
 <p align="center">
   <a href="https://vue-hn.herokuapp.com" target="_blank">
