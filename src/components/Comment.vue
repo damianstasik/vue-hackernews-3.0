@@ -1,19 +1,38 @@
 <template>
-  <li v-if="comment" class="comment">
+  <li
+    v-if="comment"
+    class="comment"
+  >
     <div class="by">
-      <router-link :to="{ name: 'user', params: { id: comment.by } }">{{ comment.by }}</router-link>
+      <router-link :to="{ name: 'user', params: { id: comment.by } }">
+        {{ comment.by }}
+      </router-link>
       {{ timeAgo(comment.time) }} ago
     </div>
-    <div class="text" v-html="comment.text"></div>
-    <div class="toggle" :class="{ open }" v-if="comment.kids && comment.kids.length">
+    <div
+      class="text"
+      v-html="comment.text"
+    />
+    <div
+      v-if="comment.kids && comment.kids.length"
+      class="toggle"
+      :class="{ open }"
+    >
       <a @click="open = !open">{{
         open
-            ? '[-]'
-            : '[+] ' + pluralize(comment.kids.length) + ' collapsed'
+          ? '[-]'
+          : '[+] ' + pluralize(comment.kids.length) + ' collapsed'
       }}</a>
     </div>
-    <ul class="comment-children" v-show="open">
-      <comment v-for="id in comment.kids" :key="id" :id="id"></comment>
+    <ul
+      v-show="open"
+      class="comment-children"
+    >
+      <comment
+        v-for="id in comment.kids"
+        :id="id"
+        :key="id"
+      />
     </ul>
   </li>
 </template>
@@ -22,7 +41,7 @@
 import { timeAgo } from '../util/filters'
 
 export default {
-  name: 'comment',
+  name: 'Comment',
   props: ['id'],
   data () {
     return {

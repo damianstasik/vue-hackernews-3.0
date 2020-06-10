@@ -1,26 +1,44 @@
 <template>
-  <div class="item-view" v-if="item">
+  <div
+    v-if="item"
+    class="item-view"
+  >
     <template v-if="item">
       <div class="item-view-header">
-        <a :href="item.url" target="_blank">
+        <a
+          :href="item.url"
+          target="_blank"
+        >
           <h1>{{ item.title }}</h1>
         </a>
-        <span v-if="item.url" class="host">
+        <span
+          v-if="item.url"
+          class="host"
+        >
           ({{ host(item.url) }})
         </span>
         <p class="meta">
           {{ item.score }} points
-          | by <router-link :to="{ name: 'user', params: { id: item.by } }">{{ item.by }}</router-link>
+          | by <router-link :to="{ name: 'user', params: { id: item.by } }">
+            {{ item.by }}
+          </router-link>
           {{ timeAgo(item.time) }} ago
         </p>
       </div>
       <div class="item-view-comments">
         <p class="item-view-comments-header">
           {{ item.kids ? item.descendants + ' comments' : 'No comments yet.' }}
-          <spinner :show="loading"></spinner>
+          <spinner :show="loading" />
         </p>
-        <ul v-if="!loading" class="comment-children">
-          <comment v-for="id in item.kids" :key="id" :id="id"></comment>
+        <ul
+          v-if="!loading"
+          class="comment-children"
+        >
+          <comment
+            v-for="id in item.kids"
+            :id="id"
+            :key="id"
+          />
         </ul>
       </div>
     </template>
@@ -33,7 +51,7 @@ import Comment from '../components/Comment.vue'
 import { timeAgo, host } from '../util/filters'
 
 export default {
-  name: 'item-view',
+  name: 'ItemView',
   components: { Spinner, Comment },
 
   data: () => ({
@@ -46,6 +64,11 @@ export default {
     }
   },
 
+  // refetch comments if item changed
+  watch: {
+    item: 'fetchComments'
+  },
+
   mounted () {
     const { params: { id }} = this.$route;
     this.$store.dispatch('FETCH_ITEMS', { ids: [id] })
@@ -55,11 +78,6 @@ export default {
 
   title () {
     return this.item.title
-  },
-
-  // refetch comments if item changed
-  watch: {
-    item: 'fetchComments'
   },
 
   methods: {

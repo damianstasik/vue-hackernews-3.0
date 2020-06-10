@@ -7,6 +7,7 @@ const camelize = str => str.charAt(0).toUpperCase() + str.slice(1)
 // since they share most of the logic except for the type of items to display.
 // They are essentially higher order components wrapping ItemList.vue.
 export default function createListView (type) {
+  // @vue/component
   return {
     name: `${type}-stories-view`,
 

@@ -3,7 +3,11 @@
     <span class="score">{{ item.score }}</span>
     <span class="title">
       <template v-if="item.url">
-        <a :href="item.url" target="_blank" rel="noopener">{{ item.title }}</a>
+        <a
+          :href="item.url"
+          target="_blank"
+          rel="noopener"
+        >{{ item.title }}</a>
         <span class="host"> ({{ host(item.url) }})</span>
       </template>
       <template v-else>
@@ -12,17 +16,26 @@
     </span>
     <br>
     <span class="meta">
-      <span v-if="item.type !== 'job'" class="by">
+      <span
+        v-if="item.type !== 'job'"
+        class="by"
+      >
         by <router-link :to="{ name: 'user', params: { id: item.by } }">{{ item.by }}</router-link>
       </span>
       <span class="time">
         {{ timeAgo(item.time) }} ago
       </span>
-      <span v-if="item.type !== 'job'" class="comments-link">
+      <span
+        v-if="item.type !== 'job'"
+        class="comments-link"
+      >
         | <router-link :to="{ name: 'item', params: { id: item.id } }">{{ item.descendants }} comments</router-link>
       </span>
     </span>
-    <span class="label" v-if="item.type !== 'story'">{{ item.type }}</span>
+    <span
+      v-if="item.type !== 'story'"
+      class="label"
+    >{{ item.type }}</span>
   </li>
 </template>
 
@@ -30,7 +43,7 @@
 import { timeAgo, host } from '../util/filters'
 
 export default {
-  name: 'news-item',
+  name: 'NewsItem',
   props: ['item'],
   // http://ssr.vuejs.org/en/caching.html#component-level-caching
   serverCacheKey: ({ item: { id, __lastUpdated, time }}) => {

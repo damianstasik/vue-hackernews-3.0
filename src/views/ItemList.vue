@@ -1,17 +1,43 @@
 <template>
   <div class="news-view">
     <div class="news-list-nav">
-      <router-link v-if="page > 1" :to="{ name: type, params: { page: page - 1 } }">&lt; prev</router-link>
-      <a v-else class="disabled">&lt; prev</a>
+      <router-link
+        v-if="page > 1"
+        :to="{ name: type, params: { page: page - 1 } }"
+      >
+        &lt; prev
+      </router-link>
+      <a
+        v-else
+        class="disabled"
+      >&lt; prev</a>
       <span>{{ page }}/{{ maxPage }}</span>
-      <router-link v-if="hasMore" :to="{ name: type, params: { page: page + 1 } }">more &gt;</router-link>
-      <a v-else class="disabled">more &gt;</a>
+      <router-link
+        v-if="hasMore"
+        :to="{ name: type, params: { page: page + 1 } }"
+      >
+        more &gt;
+      </router-link>
+      <a
+        v-else
+        class="disabled"
+      >more &gt;</a>
     </div>
     <transition :name="transition">
-      <div class="news-list" :key="displayedPage" v-if="displayedPage > 0">
-        <transition-group tag="ul" name="item">
-          <item v-for="item in displayedItems" :key="item.id" :item="item">
-          </item>
+      <div
+        v-if="displayedPage > 0"
+        :key="displayedPage"
+        class="news-list"
+      >
+        <transition-group
+          tag="ul"
+          name="item"
+        >
+          <item
+            v-for="item in displayedItems"
+            :key="item.id"
+            :item="item"
+          />
         </transition-group>
       </div>
     </transition>
@@ -23,7 +49,7 @@ import { watchList } from '../api'
 import Item from '../components/Item.vue'
 
 export default {
-  name: 'item-list',
+  name: 'ItemList',
 
   components: {
     Item
@@ -55,6 +81,12 @@ export default {
     }
   },
 
+  watch: {
+    page (to, from) {
+      this.loadItems(to, from)
+    }
+  },
+
   beforeMount () {
     if (this.$root._isMounted) {
       this.loadItems(this.page)
@@ -70,12 +102,6 @@ export default {
 
   beforeDestroy () {
     this.unwatchList()
-  },
-
-  watch: {
-    page (to, from) {
-      this.loadItems(to, from)
-    }
   },
 
   methods: {
