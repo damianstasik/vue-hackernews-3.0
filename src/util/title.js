@@ -7,15 +7,6 @@ function getTitle (vm) {
   }
 }
 
-const serverTitleMixin = {
-  created () {
-    const title = getTitle(this)
-    if (title) {
-      this.$ssrContext.title = `Vue HN 3.0 | ${title}`
-    }
-  }
-}
-
 const clientTitleMixin = {
   mounted () {
     const title = getTitle(this)
@@ -25,6 +16,4 @@ const clientTitleMixin = {
   }
 }
 
-export default process.env.VUE_ENV === 'server'
-  ? serverTitleMixin
-  : clientTitleMixin
+export default clientTitleMixin
