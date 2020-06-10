@@ -18,11 +18,13 @@
       class="toggle"
       :class="{ open }"
     >
-      <a @click="open = !open">{{
-        open
-          ? '[-]'
-          : '[+] ' + pluralize(comment.kids.length) + ' collapsed'
-      }}</a>
+      <a @click="open = !open">
+        {{
+          open
+            ? '[-]'
+            : '[+] ' + pluralize(comment.kids.length) + ' collapsed'
+        }}
+      </a>
     </div>
     <ul
       v-show="open"
@@ -38,24 +40,24 @@
 </template>
 
 <script>
+import { computed, ref } from 'vue'
+import { useStore } from 'vuex'
 import { timeAgo } from '../util/filters'
 
 export default {
   name: 'Comment',
   props: ['id'],
-  data () {
+  setup(props) {
+    const open = ref(true)
+    const { state } = useStore()
+    const comment = computed(() => state.items[props.id])
+
     return {
-      open: true
+      open,
+      comment,
+      timeAgo,
+      pluralize: n => n + (n === 1 ? ' reply' : ' replies')
     }
-  },
-  computed: {
-    comment () {
-      return this.$store.state.items[this.id]
-    }
-  },
-  methods: {
-    pluralize: n => n + (n === 1 ? ' reply' : ' replies'),
-    timeAgo
   }
 }
 </script>
