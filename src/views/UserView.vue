@@ -30,8 +30,9 @@ export default {
     }
   },
 
-  asyncData ({ store, route: { params: { id }}}) {
-    return store.dispatch('FETCH_USER', { id })
+  mounted () {
+    const { params: { id }} = this.$route;
+    return this.$store.dispatch('FETCH_USER', { id })
   },
 
   title () {
