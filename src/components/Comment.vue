@@ -73,5 +73,5 @@ export default {
     &.open
       padding 0
       background-color transparent
-      margin-bottom -0.5em.comment-childrenmargin-left1.5em.commentborder-top1pxsolid#eeepositionrelative.by,.text,.togglefont-size.9emmargin1em0.bycolor#828282acolor#828282text-decorationunderline.textoverflow-wrapbreak-worda
+      margin-bottom -0.5em
 </style>
