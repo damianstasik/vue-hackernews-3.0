@@ -24,8 +24,7 @@
 <script>
 export default {
   name: 'Spinner',
-  props: ['show'],
-  serverCacheKey: props => props.show
+  props: ['show']
 }
 </script>
 
