@@ -1,4 +1,5 @@
-import { h } from 'vue'
+import { h, onMounted } from 'vue'
+import { useStore } from 'vuex'
 import ItemList from './ItemList.vue'
 
 const camelize = str => str.charAt(0).toUpperCase() + str.slice(1)
@@ -11,8 +12,12 @@ export default function createListView (type) {
   return {
     name: `${type}-stories-view`,
 
-    mounted () {
-      this.$store.dispatch('FETCH_LIST_DATA', { type })
+    setup() {
+      const { dispatch } = useStore();
+
+      onMounted(() => {
+        dispatch('FETCH_LIST_DATA', { type })
+      })
     },
 
     title: camelize(type),
