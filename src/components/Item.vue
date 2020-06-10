@@ -7,7 +7,9 @@
           :href="item.url"
           target="_blank"
           rel="noopener"
-        >{{ item.title }}</a>
+        >
+          {{ item.title }}
+        </a>
         <span class="host"> ({{ host(item.url) }})</span>
       </template>
       <template v-else>
@@ -35,7 +37,9 @@
     <span
       v-if="item.type !== 'story'"
       class="label"
-    >{{ item.type }}</span>
+    >
+      {{ item.type }}
+    </span>
   </li>
 </template>
 
@@ -45,13 +49,11 @@ import { timeAgo, host } from '../util/filters'
 export default {
   name: 'NewsItem',
   props: ['item'],
-  // http://ssr.vuejs.org/en/caching.html#component-level-caching
-  serverCacheKey: ({ item: { id, __lastUpdated, time }}) => {
-    return `${id}::${__lastUpdated}::${timeAgo(time)}`
-  },
-  methods: {
-    timeAgo,
-    host
+  setup() {
+    return {
+      timeAgo,
+      host
+    }
   }
 }
 </script>
