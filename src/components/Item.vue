@@ -7,19 +7,19 @@
         <span class="host"> ({{ host(item.url) }})</span>
       </template>
       <template v-else>
-        <router-link :to="'/item/' + item.id">{{ item.title }}</router-link>
+        <router-link :to="{ name: 'item', params: { id: item.id } }">{{ item.title }}</router-link>
       </template>
     </span>
     <br>
     <span class="meta">
       <span v-if="item.type !== 'job'" class="by">
-        by <router-link :to="'/user/' + item.by">{{ item.by }}</router-link>
+        by <router-link :to="{ name: 'user', params: { id: item.by } }">{{ item.by }}</router-link>
       </span>
       <span class="time">
         {{ timeAgo(item.time) }} ago
       </span>
       <span v-if="item.type !== 'job'" class="comments-link">
-        | <router-link :to="'/item/' + item.id">{{ item.descendants }} comments</router-link>
+        | <router-link :to="{ name: 'item', params: { id: item.id } }">{{ item.descendants }} comments</router-link>
       </span>
     </span>
     <span class="label" v-if="item.type !== 'story'">{{ item.type }}</span>

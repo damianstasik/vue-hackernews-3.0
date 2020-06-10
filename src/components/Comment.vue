@@ -1,7 +1,7 @@
 <template>
   <li v-if="comment" class="comment">
     <div class="by">
-      <router-link :to="'/user/' + comment.by">{{ comment.by }}</router-link>
+      <router-link :to="{ name: 'user', params: { id: comment.by } }">{{ comment.by }}</router-link>
       {{ timeAgo(comment.time) }} ago
     </div>
     <div class="text" v-html="comment.text"></div>

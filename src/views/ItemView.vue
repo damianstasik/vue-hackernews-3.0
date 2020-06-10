@@ -10,7 +10,7 @@
         </span>
         <p class="meta">
           {{ item.score }} points
-          | by <router-link :to="'/user/' + item.by">{{ item.by }}</router-link>
+          | by <router-link :to="{ name: 'user', params: { id: item.by } }">{{ item.by }}</router-link>
           {{ timeAgo(item.time) }} ago
         </p>
       </div>
