@@ -1,5 +1,11 @@
-// this is aliased in webpack config based on server/client build
-import { createAPI } from 'create-api'
+import Firebase from "firebase/app";
+
+import 'firebase/database'
+
+function createAPI ({ config, version }) {
+  Firebase.initializeApp(config)
+  return Firebase.database().ref(version)
+}
 
 const logRequests = !!process.env.DEBUG_API
 

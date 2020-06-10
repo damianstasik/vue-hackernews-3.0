@@ -46,6 +46,7 @@ export default {
       return Number(this.$route.params.page) || 1
     },
     maxPage () {
+      ('c', this)
       const { itemsPerPage, lists } = this.$store.state
       return Math.ceil(lists[this.type].length / itemsPerPage)
     },
