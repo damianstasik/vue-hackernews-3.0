@@ -13,66 +13,64 @@ export default {
 </script>
 
 <template>
-  <div id="app">
-    <header class="header">
-      <nav class="inner">
-        <router-link
-          to="/"
-          exact
-        >
-          <img
-            class="logo"
-            src="/logo-48.png"
-            alt="logo"
-          >
-        </router-link>
-        <router-link :to="{ name: 'top' }">
-          Top
-        </router-link>
-        <router-link :to="{ name: 'new' }">
-          New
-        </router-link>
-        <router-link :to="{ name: 'show' }">
-          Show
-        </router-link>
-        <router-link :to="{ name: 'ask' }">
-          Ask
-        </router-link>
-        <router-link :to="{ name: 'job' }">
-          Jobs
-        </router-link>
-        <a
-          class="github"
-          href="https://github.com/visualfanatic/vue-hackernews-3.0"
-          target="_blank"
-          rel="noopener"
-        >
-          Built with Vue.js
-        </a>
-      </nav>
-    </header>
-    <div class="view">
-      <transition
-        name="fade"
-        mode="out-in"
+  <header class="header">
+    <nav class="inner">
+      <router-link
+        to="/"
+        exact
       >
-        <Suspense>
-          <template #default>
-            <router-view />
+        <img
+          class="logo"
+          src="/logo-48.png"
+          alt="logo"
+        >
+      </router-link>
+      <router-link :to="{ name: 'top' }">
+        Top
+      </router-link>
+      <router-link :to="{ name: 'new' }">
+        New
+      </router-link>
+      <router-link :to="{ name: 'show' }">
+        Show
+      </router-link>
+      <router-link :to="{ name: 'ask' }">
+        Ask
+      </router-link>
+      <router-link :to="{ name: 'job' }">
+        Jobs
+      </router-link>
+      <a
+        class="github"
+        href="https://github.com/visualfanatic/vue-hackernews-3.0"
+        target="_blank"
+        rel="noopener"
+      >
+        Built with Vue.js
+      </a>
+    </nav>
+  </header>
+  <div class="view">
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+      <Suspense>
+        <template #default>
+          <router-view />
+        </template>
+        <template #fallback>
+          <template v-if="$route.meta.type === 'user'">
+            <UserView />
           </template>
-          <template #fallback>
-            <template v-if="$route.meta.type === 'user'">
-              <UserView />
-            </template>
-            <template v-else>
-              <p class="loading">
-                Loading {{ $route.meta.type }}...
-              </p>
-            </template>
+          <template v-else>
+            <p class="loading">
+              Loading {{ $route.meta.type }}...
+            </p>
           </template>
-        </Suspense>
-      </transition>
-    </div>
+        </template>
+      </Suspense>
+    </transition>
   </div>
 </template>
 
