@@ -6,7 +6,7 @@ import {
 
 export default {
   // ensure data for rendering given list type
-  FETCH_LIST_DATA: ({ commit, dispatch, state }, { type }) => {
+  FETCH_LIST_DATA: ({ commit, dispatch }, { type }) => {
     commit('SET_ACTIVE_TYPE', { type });
     return fetchIdsByType(type)
       .then((ids) => commit('SET_LIST', { type, ids }))
