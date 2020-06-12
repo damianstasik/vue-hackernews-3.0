@@ -1,52 +1,38 @@
 <template>
   <div class="user-view">
-    <template v-if="user">
-      <h1>User : {{ user.id }}</h1>
-      <ul class="meta">
-        <li><span class="label">Created:</span> {{ timeAgo(user.created) }} ago</li>
-        <li><span class="label">Karma:</span> {{ user.karma }}</li>
-        <li
-          v-if="user.about"
-          class="about"
-          v-html="user.about"
-        />
-      </ul>
-      <p class="links">
-        <a :href="'https://news.ycombinator.com/submitted?id=' + user.id">submissions</a> |
-        <a :href="'https://news.ycombinator.com/threads?id=' + user.id">comments</a>
-      </p>
-    </template>
-    <template v-else-if="user === false">
-      <h1>User not found.</h1>
-    </template>
+    <h1>User: {{ user.id }}</h1>
+    <ul class="meta">
+      <li><span class="label">Created:</span> {{ timeAgo(user.created) }} ago</li>
+      <li><span class="label">Karma:</span> {{ user.karma }}</li>
+      <li
+        v-if="user.about"
+        class="about"
+        v-html="user.about"
+      />
+    </ul>
+    <p class="links">
+      <a :href="'https://news.ycombinator.com/submitted?id=' + user.id">submissions</a> |
+      <a :href="'https://news.ycombinator.com/threads?id=' + user.id">comments</a>
+    </p>
   </div>
 </template>
 
 <script>
-import { computed, onMounted } from 'vue';
-import { useStore } from 'vuex';
-import { useRoute } from 'vue-router';
 import { timeAgo } from '../util/filters';
 
 export default {
   name: 'UserView',
 
-  async setup() {
-    const { state, dispatch } = useStore();
-    const { params } = useRoute();
-    const user = computed(() => state.users[params.id]);
+  props: {
+    user: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
 
-    onMounted(() => {
-      document.title = user.value
-        ? user.value.id
-        : 'User not found';
-    });
-
-    await dispatch('FETCH_USER', { id: params.id });
-
+  setup() {
     return {
       timeAgo,
-      user,
     };
   },
 };

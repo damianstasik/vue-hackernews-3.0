@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 // route-level code splitting
 const ItemList = () => import('../views/ItemList.vue');
 const ItemView = () => import('../views/ItemView.vue');
-const UserView = () => import('../views/UserView.vue');
+const UserRoute = () => import('../routes/UserRoute.vue');
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -43,11 +43,13 @@ export const router = createRouter({
       name: 'item',
       path: '/item/:id(\\d+)',
       component: ItemView,
+      meta: { type: 'item' },
     },
     {
       name: 'user',
       path: '/user/:id',
-      component: UserView,
+      component: UserRoute,
+      meta: { type: 'user' },
     },
     {
       path: '/',
