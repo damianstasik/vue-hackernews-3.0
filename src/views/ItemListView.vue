@@ -1,14 +1,13 @@
 <template>
-  <transition-group
-    name="item"
-    class="news-list"
-  >
-    <Item
-      v-for="item in items"
-      :key="item.id"
-      :item="item"
-    />
-  </transition-group>
+  <div class="news-list">
+    <transition-group name="item">
+      <Item
+        v-for="item in items"
+        :key="item.id"
+        :item="item"
+      />
+    </transition-group>
+  </div>
 </template>
 
 <script>

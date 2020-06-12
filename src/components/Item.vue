@@ -109,6 +109,9 @@ export default {
     text-align: center;
     margin-top: -10px;
   }
+  .time {
+    margin-left: 5px;
+  }
   .meta, .host {
     font-size: .85em;
     color: #828282;
