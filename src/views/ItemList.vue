@@ -25,8 +25,8 @@
     </div>
     <transition :name="transition">
       <div
-        v-if="displayedPage > 0"
-        :key="displayedPage"
+        v-if="page > 0"
+        :key="page"
         class="news-list"
       >
         <transition-group
@@ -45,6 +45,11 @@
 </template>
 
 <script>
+import {
+  ref, computed, watch, onBeforeUnmount,
+} from 'vue';
+import { useStore } from 'vuex';
+import { useRoute, useRouter } from 'vue-router';
 import { watchList } from '../api';
 import Item from '../components/Item.vue';
 
@@ -55,73 +60,56 @@ export default {
     Item,
   },
 
-  data() {
-    return {
-      transition: 'slide-right',
-      displayedPage: Number(this.$route.params.page) || 1,
-      displayedItems: this.$store.getters.activeItems,
-    };
-  },
+  async setup() {
+    const route = useRoute();
+    const { replace } = useRouter();
+    const transition = ref('slide-right');
+    const page = computed(() => Number(route.params.page) || 1);
 
-  computed: {
-    type() {
-      return this.$route.meta.type;
-    },
-    page() {
-      return Number(this.$route.params.page) || 1;
-    },
-    maxPage() {
-      const { itemsPerPage, lists } = this.$store.state;
-      return Math.ceil(lists[this.type].length / itemsPerPage);
-    },
-    hasMore() {
-      return this.page < this.maxPage;
-    },
-  },
+    const {
+      state, dispatch, getters, commit,
+    } = useStore();
 
-  watch: {
-    page(to, from) {
-      this.loadItems(to, from);
-    },
-  },
+    const displayedItems = computed(() => getters.activeItems);
+    const type = computed(() => route.meta.type);
+    const maxPage = computed(() => Math.ceil(state.lists[type.value].length / state.itemsPerPage) || 1);
+    const hasMore = computed(() => page.value < maxPage.value);
 
-  mounted() {
-    this.$store.dispatch('FETCH_LIST_DATA', { type: this.type });
-  },
-
-  beforeMount() {
-    // watch the current list for realtime updates
-    this.unwatchList = watchList(this.type, (ids) => {
-      this.$store.commit('SET_LIST', { type: this.type, ids });
-      this.$store.dispatch('ENSURE_ACTIVE_ITEMS').then(() => {
-        this.displayedItems = this.$store.getters.activeItems;
-      });
+    const unwatchList = watchList(type.value, (ids) => {
+      commit('SET_LIST', { type: type.value, ids });
+      dispatch('ENSURE_ACTIVE_ITEMS');
     });
-  },
 
-  beforeDestroy() {
-    this.unwatchList();
-  },
+    onBeforeUnmount(() => unwatchList());
 
-  methods: {
-    loadItems(to = this.page, from = -1) {
-      this.$bar.start();
-      this.$store.dispatch('FETCH_LIST_DATA', {
-        type: this.type,
+    watch(page, (to = page.value, from = -1) => {
+      dispatch('FETCH_LIST_DATA', {
+        type: type.value,
       }).then(() => {
-        if (this.page < 0 || this.page > this.maxPage) {
-          this.$router.replace(`/${this.type}/1`);
+        if (page.value < 0 || page.value > maxPage.value) {
+          replace({
+            name: type.value,
+            params: { page: 1 },
+          });
           return;
         }
         // eslint-disable-next-line no-nested-ternary
-        this.transition = from === -1
+        transition.value = from === -1
           ? null
           : to > from ? 'slide-left' : 'slide-right';
-        this.displayedPage = to;
-        this.displayedItems = this.$store.getters.activeItems;
-        this.$bar.finish();
       });
-    },
+    });
+
+    await dispatch('FETCH_LIST_DATA', { type: type.value });
+
+    return {
+      transition,
+      page,
+      displayedItems,
+      hasMore,
+      maxPage,
+      type,
+    };
   },
 };
 </script>
