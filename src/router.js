@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 // route-level code splitting
-const ItemListRoute = () => import('../routes/ItemListRoute.vue');
-const ItemView = () => import('../views/ItemView.vue');
-const UserRoute = () => import('../routes/UserRoute.vue');
+const ItemListRoute = () => import('./routes/ItemListRoute.vue');
+const ItemView = () => import('./views/ItemView.vue');
+const UserRoute = () => import('./routes/UserRoute.vue');
 
 export const router = createRouter({
   history: createWebHistory(),
