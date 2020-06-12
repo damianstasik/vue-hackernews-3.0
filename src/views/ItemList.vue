@@ -55,10 +55,6 @@ export default {
     Item
   },
 
-  props: {
-    type: String
-  },
-
   data () {
     return {
       transition: 'slide-right',
@@ -68,11 +64,13 @@ export default {
   },
 
   computed: {
+    type() {
+      return this.$route.meta.type;
+    },
     page () {
       return Number(this.$route.params.page) || 1
     },
     maxPage () {
-      ('c', this)
       const { itemsPerPage, lists } = this.$store.state
       return Math.ceil(lists[this.type].length / itemsPerPage)
     },
@@ -85,6 +83,10 @@ export default {
     page (to, from) {
       this.loadItems(to, from)
     }
+  },
+
+  mounted() {
+    this.$store.dispatch('FETCH_LIST_DATA', { type: this.type })
   },
 
   beforeMount () {
