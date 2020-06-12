@@ -31,9 +31,9 @@
       class="comment-children"
     >
       <comment
-        v-for="id in comment.kids"
-        :id="id"
-        :key="id"
+        v-for="commentId in comment.kids"
+        :id="commentId"
+        :key="commentId"
       />
     </ul>
   </li>
