@@ -12,6 +12,7 @@ function pluralize(time, label) {
   return `${time + label}s`;
 }
 
+/* eslint-disable no-bitwise */
 export function timeAgo(time) {
   const between = Date.now() / 1000 - Number(time);
   if (between < 3600) {
