@@ -41,7 +41,16 @@
       name="fade"
       mode="out-in"
     >
-      <router-view class="view" />
+      <Suspense>
+        <template #default>
+          <router-view class="view" />
+        </template>
+        <template #fallback>
+          <p class="loading">
+            Loading...
+          </p>
+        </template>
+      </Suspense>
     </transition>
   </div>
 </template>
@@ -66,6 +75,10 @@ body {
   padding-top: 55px;
   color: #34495e;
   overflow-y: scroll;
+}
+
+.loading {
+  text-align: center;
 }
 
 a {

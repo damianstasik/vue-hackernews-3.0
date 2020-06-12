@@ -31,18 +31,18 @@ import { timeAgo } from '../util/filters';
 export default {
   name: 'UserView',
 
-  setup() {
+  async setup() {
     const { state, dispatch } = useStore();
     const { params } = useRoute();
     const user = computed(() => state.users[params.id]);
 
-    onMounted(async () => {
-      await dispatch('FETCH_USER', { id: params.id });
-
+    onMounted(() => {
       document.title = user.value
         ? user.value.id
         : 'User not found';
     });
+
+    await dispatch('FETCH_USER', { id: params.id });
 
     return {
       timeAgo,
