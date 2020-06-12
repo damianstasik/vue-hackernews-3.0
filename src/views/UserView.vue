@@ -1,27 +1,65 @@
 <template>
   <div class="user-view">
-    <h1>User: {{ user.id }}</h1>
+    <h1>
+      User:
+      <Skeleton
+        :active="!user.id"
+        style="width: 100px"
+      >
+        {{ user.id }}
+      </Skeleton>
+    </h1>
     <ul class="meta">
-      <li><span class="label">Created:</span> {{ timeAgo(user.created) }} ago</li>
-      <li><span class="label">Karma:</span> {{ user.karma }}</li>
+      <li>
+        <span class="label">Created:</span>
+        <Skeleton
+          :active="!user.id"
+          style="width: 90px"
+        >
+          {{ timeAgo(user.created) }} ago
+        </Skeleton>
+      </li>
+      <li>
+        <span class="label">Karma:</span>
+        <Skeleton
+          :active="!user.id"
+          style="width: 50px"
+        >
+          {{ user.karma }}
+        </Skeleton>
+      </li>
       <li
         v-if="user.about"
         class="about"
         v-html="user.about"
       />
     </ul>
-    <p class="links">
+    <p
+      v-if="user.id"
+      class="links"
+    >
       <a :href="'https://news.ycombinator.com/submitted?id=' + user.id">submissions</a> |
       <a :href="'https://news.ycombinator.com/threads?id=' + user.id">comments</a>
+    </p>
+    <p
+      v-else
+      class="links"
+    >
+      <Skeleton style="width: 80px" /> | <Skeleton style="width: 80px" />
     </p>
   </div>
 </template>
 
 <script>
+import Skeleton from '../components/Skeleton.vue';
 import { timeAgo } from '../util/filters';
 
 export default {
   name: 'UserView',
+
+  components: {
+    Skeleton,
+  },
 
   props: {
     user: {

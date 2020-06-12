@@ -1,3 +1,17 @@
+<script>
+import { defineAsyncComponent } from 'vue';
+
+const UserView = defineAsyncComponent(() => import('./views/UserView.vue'));
+
+export default {
+  name: 'App',
+
+  components: {
+    UserView,
+  },
+};
+</script>
+
 <template>
   <div id="app">
     <header class="header">
@@ -37,21 +51,28 @@
         </a>
       </nav>
     </header>
-    <transition
-      name="fade"
-      mode="out-in"
-    >
-      <Suspense>
-        <template #default>
-          <router-view class="view" />
-        </template>
-        <template #fallback>
-          <p class="loading">
-            Loading...
-          </p>
-        </template>
-      </Suspense>
-    </transition>
+    <div class="view">
+      <transition
+        name="fade"
+        mode="out-in"
+      >
+        <Suspense>
+          <template #default>
+            <router-view />
+          </template>
+          <template #fallback>
+            <template v-if="$route.meta.type === 'user'">
+              <UserView />
+            </template>
+            <template v-else>
+              <p class="loading">
+                Loading {{ $route.meta.type }}...
+              </p>
+            </template>
+          </template>
+        </Suspense>
+      </transition>
+    </div>
   </div>
 </template>
 
