@@ -8,6 +8,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'vue/attribute-hyphenation': 'off',
     'import/prefer-default-export': 'off',
     'no-param-reassign': ['error', {
       props: true,

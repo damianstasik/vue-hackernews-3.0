@@ -2,6 +2,8 @@
 export default {
   name: 'Skeleton',
 
+  inheritAttrs: false,
+
   props: {
     active: {
       type: Boolean,
@@ -15,6 +17,7 @@ export default {
   <span
     v-if="active"
     class="root"
+    v-bind="$attrs"
   />
   <slot v-else />
 </template>

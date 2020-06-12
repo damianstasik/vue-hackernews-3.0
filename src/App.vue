@@ -2,12 +2,16 @@
 import { defineAsyncComponent } from 'vue';
 
 const UserView = defineAsyncComponent(() => import('./views/UserView.vue'));
+const Pagination = defineAsyncComponent(() => import('./components/Pagination.vue'));
+const Item = defineAsyncComponent(() => import('./components/Item.vue'));
 
 export default {
   name: 'App',
 
   components: {
     UserView,
+    Pagination,
+    Item,
   },
 };
 </script>
@@ -63,6 +67,15 @@ export default {
           <template v-if="$route.meta.type === 'user'">
             <UserView />
           </template>
+          <template v-if="$route.meta.type === 'top'">
+            <Pagination />
+            <div class="list">
+              <Item
+                v-for="n in 20"
+                :key="n"
+              />
+            </div>
+          </template>
           <template v-else>
             <p class="loading">
               Loading {{ $route.meta.type }}...
@@ -94,6 +107,10 @@ body {
   padding-top: 55px;
   color: #34495e;
   overflow-y: scroll;
+}
+
+.list {
+  margin-top: 45px;
 }
 
 .loading {

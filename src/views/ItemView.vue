@@ -62,6 +62,7 @@ function fetchComments(store, item) {
 
 export default {
   name: 'ItemView',
+
   components: { Spinner, Comment },
 
   data: () => ({
