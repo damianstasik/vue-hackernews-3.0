@@ -24,7 +24,7 @@ export default {
 </script>
 
 <template>
-  <div class="news-list-nav">
+  <nav class="news-list-nav">
     <router-link
       v-if="page > 1"
       :to="{ name: routeName, params: { page: page - 1 } }"
@@ -46,7 +46,7 @@ export default {
       v-else
       class="disabled"
     >more &gt;</a>
-  </div>
+  </nav>
 </template>
 
 <style lang="scss">
