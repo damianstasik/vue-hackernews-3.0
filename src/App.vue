@@ -110,7 +110,8 @@ body {
 }
 
 .list {
-  margin-top: 45px;
+  padding-top: 45px;
+  margin: 30px 0;
 }
 
 .loading {
