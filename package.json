@@ -12,7 +12,8 @@
     "npm": ">=4.0"
   },
   "dependencies": {
-    "firebase": "7.15.1",
+    "@firebase/app": "^0.6.5",
+    "@firebase/database": "^0.6.4",
     "vue": "^3.0.0-beta.14",
     "vue-router": "^4.0.0-alpha.12",
     "vuex": "^4.0.0-beta.2",

@@ -1,6 +1,6 @@
-import Firebase from 'firebase/app';
+import Firebase from '@firebase/app';
 
-import 'firebase/database';
+import '@firebase/database';
 
 function createAPI({ config, version }) {
   Firebase.initializeApp(config);
