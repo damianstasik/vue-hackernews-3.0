@@ -15,7 +15,7 @@
           v-if="item.url"
           class="host"
         >
-          ({{ host(item.url) }})
+          ({{ getHost(item.url) }})
         </span>
         <p class="meta">
           {{ item.score }} points
@@ -46,66 +46,62 @@
 </template>
 
 <script>
-import Spinner from '../components/Spinner.vue'
-import Comment from '../components/Comment.vue'
-import { timeAgo, host } from '../util/filters'
+import Spinner from '../components/Spinner.vue';
+import Comment from '../components/Comment.vue';
+import { timeAgo, getHost } from '../util/filters';
+
+// recursively fetch all descendent comments
+function fetchComments(store, item) {
+  return store.dispatch('FETCH_ITEMS', {
+    ids: item.kids,
+  }).then(() => Promise.all(item.kids.map((id) => fetchComments(store, store.state.items[id]))));
+}
 
 export default {
   name: 'ItemView',
   components: { Spinner, Comment },
 
   data: () => ({
-    loading: true
+    loading: true,
   }),
 
   computed: {
-    item () {
-      return this.$store.state.items[this.$route.params.id] || {}
-    }
+    item() {
+      return this.$store.state.items[this.$route.params.id] || {};
+    },
   },
 
   // refetch comments if item changed
   watch: {
-    item: 'fetchComments'
+    item: 'fetchComments',
   },
 
-  mounted () {
-    const { params: { id }} = this.$route;
-    this.$store.dispatch('FETCH_ITEMS', { ids: [id] })
+  mounted() {
+    const { params: { id } } = this.$route;
+    this.$store.dispatch('FETCH_ITEMS', { ids: [id] });
 
-    this.fetchComments()
+    this.fetchComments();
   },
 
-  title () {
-    return this.item.title
+  title() {
+    return this.item.title;
   },
 
   methods: {
-    fetchComments () {
+    fetchComments() {
       if (!this.item || !this.item.kids) {
-        return
+        return;
       }
 
-      this.loading = true
+      this.loading = true;
       fetchComments(this.$store, this.item).then(() => {
-        this.loading = false
-      })
+        this.loading = false;
+      });
     },
     timeAgo,
-    host
-  }
-}
-
-// recursively fetch all descendent comments
-function fetchComments (store, item) {
-  if (item && item.kids) {
-    return store.dispatch('FETCH_ITEMS', {
-      ids: item.kids
-    }).then(() => Promise.all(item.kids.map(id => {
-      return fetchComments(store, store.state.items[id])
-    })))
-  }
-}
+    getHost,
+  },
+};
 </script>
 
 <style lang="scss">

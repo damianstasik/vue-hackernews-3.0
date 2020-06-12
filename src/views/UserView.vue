@@ -23,35 +23,35 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue'
-import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
-import { timeAgo } from '../util/filters'
+import { computed, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import { useRoute } from 'vue-router';
+import { timeAgo } from '../util/filters';
 
 export default {
   name: 'UserView',
 
   setup() {
-    const { state, dispatch } = useStore()
-    const { params } = useRoute()
-    const user = computed(() => state.users[params.id])
+    const { state, dispatch } = useStore();
+    const { params } = useRoute();
+    const user = computed(() => state.users[params.id]);
 
     onMounted(() => {
-      dispatch('FETCH_USER', { id: params.id })
-    })
+      dispatch('FETCH_USER', { id: params.id });
+    });
 
     return {
       timeAgo,
-      user
-    }
+      user,
+    };
   },
 
-  title () {
+  title() {
     return this.user
       ? this.user.id
-      : 'User not found'
-  }
-}
+      : 'User not found';
+  },
+};
 </script>
 
 <style lang="scss">

@@ -24,8 +24,8 @@
 <script>
 export default {
   name: 'Spinner',
-  props: ['show']
-}
+  props: ['show'],
+};
 </script>
 
 <style lang="scss">

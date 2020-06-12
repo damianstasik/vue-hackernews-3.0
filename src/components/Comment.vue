@@ -40,26 +40,26 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
-import { useStore } from 'vuex'
-import { timeAgo } from '../util/filters'
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
+import { timeAgo } from '../util/filters';
 
 export default {
   name: 'Comment',
   props: ['id'],
   setup(props) {
-    const open = ref(true)
-    const { state } = useStore()
-    const comment = computed(() => state.items[props.id])
+    const open = ref(true);
+    const { state } = useStore();
+    const comment = computed(() => state.items[props.id]);
 
     return {
       open,
       comment,
       timeAgo,
-      pluralize: n => n + (n === 1 ? ' reply' : ' replies')
-    }
-  }
-}
+      pluralize: (n) => n + (n === 1 ? ' reply' : ' replies'),
+    };
+  },
+};
 </script>
 
 <style lang="scss">

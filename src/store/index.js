@@ -1,8 +1,8 @@
-import { createStore } from 'vuex'
+import { createStore } from 'vuex';
 
-import actions from './actions'
-import mutations from './mutations'
-import getters from './getters'
+import actions from './actions';
+import mutations from './mutations';
+import getters from './getters';
 
 export const store = createStore({
   state: {
@@ -15,10 +15,10 @@ export const store = createStore({
       new: [],
       show: [],
       ask: [],
-      job: []
-    }
+      job: [],
+    },
   },
   actions,
   mutations,
-  getters
-})
+  getters,
+});

@@ -10,7 +10,7 @@
         >
           {{ item.title }}
         </a>
-        <span class="host"> ({{ host(item.url) }})</span>
+        <span class="host"> ({{ getHost(item.url) }})</span>
       </template>
       <template v-else>
         <router-link :to="{ name: 'item', params: { id: item.id } }">{{ item.title }}</router-link>
@@ -31,7 +31,10 @@
         v-if="item.type !== 'job'"
         class="comments-link"
       >
-        | <router-link :to="{ name: 'item', params: { id: item.id } }">{{ item.descendants }} comments</router-link>
+        |
+        <router-link :to="{ name: 'item', params: { id: item.id } }">
+          {{ item.descendants }} comments
+        </router-link>
       </span>
     </span>
     <span
@@ -44,7 +47,7 @@
 </template>
 
 <script>
-import { timeAgo, host } from '../util/filters'
+import { timeAgo, getHost } from '../util/filters';
 
 export default {
   name: 'NewsItem',
@@ -52,10 +55,10 @@ export default {
   setup() {
     return {
       timeAgo,
-      host
-    }
-  }
-}
+      getHost,
+    };
+  },
+};
 </script>
 
 <style lang="scss">

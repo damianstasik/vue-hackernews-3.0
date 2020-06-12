@@ -2,28 +2,64 @@
   <div id="app">
     <header class="header">
       <nav class="inner">
-        <router-link to="/" exact>
-          <img class="logo" src="/logo-48.png" alt="logo">
+        <router-link
+          to="/"
+          exact
+        >
+          <img
+            class="logo"
+            src="/logo-48.png"
+            alt="logo"
+          >
         </router-link>
-        <router-link :to="{ name: 'top' }">Top</router-link>
-        <router-link :to="{ name: 'new' }">New</router-link>
-        <router-link :to="{ name: 'show' }">Show</router-link>
-        <router-link :to="{ name: 'ask' }">Ask</router-link>
-        <router-link :to="{ name: 'job' }">Jobs</router-link>
-        <a class="github" href="https://github.com/visualfanatic/vue-hackernews-3.0" target="_blank" rel="noopener">
+        <router-link :to="{ name: 'top' }">
+          Top
+        </router-link>
+        <router-link :to="{ name: 'new' }">
+          New
+        </router-link>
+        <router-link :to="{ name: 'show' }">
+          Show
+        </router-link>
+        <router-link :to="{ name: 'ask' }">
+          Ask
+        </router-link>
+        <router-link :to="{ name: 'job' }">
+          Jobs
+        </router-link>
+        <a
+          class="github"
+          href="https://github.com/visualfanatic/vue-hackernews-3.0"
+          target="_blank"
+          rel="noopener"
+        >
           Built with Vue.js
         </a>
       </nav>
     </header>
-    <transition name="fade" mode="out-in">
-      <router-view class="view"></router-view>
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+      <router-view class="view" />
     </transition>
   </div>
 </template>
 
 <style lang="scss">
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif;
   font-size: 15px;
   background-color: lighten(#eceef1, 30%);
   margin: 0;
