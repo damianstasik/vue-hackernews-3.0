@@ -46,27 +46,30 @@ export default {
     const maxPage = computed(() => Math.ceil(state.lists[type.value].length / state.itemsPerPage) || 1);
     const hasMore = computed(() => page.value < maxPage.value);
 
-    watch([page, type], ([to, currentType], [from = -1], onInvalidate) => {
+    watch([page, type], async ([to, currentType], [from = -1], onInvalidate) => {
       const unwatchList = watchList(currentType, (ids) => {
         commit('SET_LIST', { type: currentType, ids });
         dispatch('ENSURE_ACTIVE_ITEMS');
       });
 
-      dispatch('FETCH_LIST_DATA', {
+      await dispatch('FETCH_LIST_DATA', {
         type: currentType,
-      }).then(() => {
-        if (page.value < 0 || page.value > maxPage.value) {
-          replace({
-            name: currentType,
-            params: { page: 1 },
-          });
-          return;
-        }
-        // eslint-disable-next-line no-nested-ternary
-        transition.value = from === -1
-          ? null
-          : to > from ? 'slide-left' : 'slide-right';
       });
+
+      if (page.value < 0 || page.value > maxPage.value) {
+        replace({
+          name: currentType,
+          params: { page: 1 },
+        });
+        return;
+      }
+
+      // eslint-disable-next-line no-nested-ternary
+      transition.value = from === -1
+        ? null
+        : to > from
+          ? 'slide-left'
+          : 'slide-right';
 
       onInvalidate(() => unwatchList());
     });
