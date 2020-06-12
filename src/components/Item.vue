@@ -51,7 +51,12 @@ import { timeAgo, getHost } from '../util/filters';
 
 export default {
   name: 'NewsItem',
-  props: ['item'],
+  props: {
+    item: {
+      type: Object,
+      required: true,
+    },
+  },
   setup() {
     return {
       timeAgo,

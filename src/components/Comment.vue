@@ -46,7 +46,12 @@ import { timeAgo } from '../util/filters';
 
 export default {
   name: 'Comment',
-  props: ['id'],
+  props: {
+    id: {
+      type: String,
+      required: true,
+    },
+  },
   setup(props) {
     const open = ref(true);
     const { state } = useStore();

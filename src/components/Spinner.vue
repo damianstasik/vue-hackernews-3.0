@@ -3,7 +3,7 @@
     <svg
       v-show="show"
       class="spinner"
-      :class="{ show: show }"
+      :class="{ show }"
       width="44px"
       height="44px"
       viewBox="0 0 44 44"
@@ -24,7 +24,12 @@
 <script>
 export default {
   name: 'Spinner',
-  props: ['show'],
+  props: {
+    show: {
+      type: Boolean,
+      default: false,
+    },
+  },
 };
 </script>
 
