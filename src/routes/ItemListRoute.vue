@@ -1,20 +1,3 @@
-<template>
-  <Pagination
-    :page="page"
-    :maxPage="maxPage"
-    :hasMore="hasMore"
-    :routeName="type"
-  />
-  <div class="news-view">
-    <transition :name="transition">
-      <ItemListView
-        :key="page"
-        :items="items"
-      />
-    </transition>
-  </div>
-</template>
-
 <script>
 import { ref, computed, watch } from 'vue';
 import { useStore } from 'vuex';
@@ -34,15 +17,16 @@ export default {
   async setup() {
     const route = useRoute();
     const { replace } = useRouter();
-    const transition = ref('slide-right');
-    const page = computed(() => Number(route.params.page) || 1);
 
     const {
       state, dispatch, getters, commit,
     } = useStore();
 
+    const transition = ref('slide-right');
     const items = computed(() => getters.activeItems);
     const type = computed(() => route.meta.type);
+
+    const page = computed(() => Number(route.params.page) || 1);
     const maxPage = computed(() => Math.ceil(state.lists[type.value].length / state.itemsPerPage) || 1);
     const hasMore = computed(() => page.value < maxPage.value);
 
@@ -88,17 +72,36 @@ export default {
 };
 </script>
 
+<template>
+  <Pagination
+    :page="page"
+    :maxPage="maxPage"
+    :hasMore="hasMore"
+    :routeName="type"
+  />
+  <div class="news-view">
+    <transition :name="transition">
+      <ItemListView
+        :key="page"
+        :items="items"
+      />
+    </transition>
+  </div>
+</template>
+
 <style lang="scss">
 .news-view {
   padding-top: 45px;
 }
 
-.slide-left-enter, .slide-right-leave-to {
+.slide-left-enter,
+.slide-right-leave-to {
   opacity: 0;
   transform: translate(30px, 0);
 }
 
-.slide-left-leave-to, .slide-right-enter {
+.slide-left-leave-to,
+.slide-right-enter {
   opacity: 0;
   transform: translate(-30px, 0);
 }

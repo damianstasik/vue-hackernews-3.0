@@ -34,7 +34,9 @@ export default {
     <a
       v-else
       class="disabled"
-    >&lt; prev</a>
+    >
+      &lt; prev
+    </a>
     <span>{{ page }}/{{ maxPage }}</span>
     <router-link
       v-if="hasMore"
@@ -45,7 +47,9 @@ export default {
     <a
       v-else
       class="disabled"
-    >more &gt;</a>
+    >
+      more &gt;
+    </a>
   </nav>
 </template>
 
@@ -59,10 +63,12 @@ export default {
   left: 0;
   right: 0;
   z-index: 998;
-  box-shadow: 0 1px 2px rgba(0,0,0,.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+
   a {
     margin: 0 1em;
   }
+
   .disabled {
     color: #ccc;
   }

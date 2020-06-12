@@ -13,43 +13,57 @@ export const router = createRouter({
       name: 'top',
       path: '/top/:page(\\d+)?',
       component: ItemListRoute,
-      meta: { type: 'top' },
+      meta: {
+        type: 'top',
+      },
     },
     {
       name: 'new',
       path: '/new/:page(\\d+)?',
       component: ItemListRoute,
-      meta: { type: 'new' },
+      meta: {
+        type: 'new',
+      },
     },
     {
       name: 'show',
       path: '/show/:page(\\d+)?',
       component: ItemListRoute,
-      meta: { type: 'show' },
+      meta: {
+        type: 'show',
+      },
     },
     {
       name: 'ask',
       path: '/ask/:page(\\d+)?',
       component: ItemListRoute,
-      meta: { type: 'ask' },
+      meta: {
+        type: 'ask',
+      },
     },
     {
       name: 'job',
       path: '/job/:page(\\d+)?',
       component: ItemListRoute,
-      meta: { type: 'job' },
+      meta: {
+        type: 'job',
+      },
     },
     {
       name: 'item',
       path: '/item/:id(\\d+)',
       component: ItemView,
-      meta: { type: 'item' },
+      meta: {
+        type: 'item',
+      },
     },
     {
       name: 'user',
       path: '/user/:id',
       component: UserRoute,
-      meta: { type: 'user' },
+      meta: {
+        type: 'user',
+      },
     },
     {
       path: '/',

@@ -1,12 +1,3 @@
-<template>
-  <template v-if="user">
-    <UserView :user="user" />
-  </template>
-  <template v-else-if="user === false">
-    <h1>User not found.</h1>
-  </template>
-</template>
-
 <script>
 import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
@@ -39,3 +30,12 @@ export default {
   },
 };
 </script>
+
+<template>
+  <template v-if="user">
+    <UserView :user="user" />
+  </template>
+  <template v-else-if="user === false">
+    <h1>User not found.</h1>
+  </template>
+</template>

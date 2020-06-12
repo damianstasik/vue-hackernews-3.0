@@ -131,12 +131,22 @@ a {
   top: 0;
   left: 0;
   right: 0;
+
   .inner {
     max-width: 800px;
     box-sizing: border-box;
     margin: 0px auto;
     padding: 15px 5px;
+
+    @media (max-width: 600px) {
+      padding: 15px;
+    }
+
+    @media (max-width: 860px) {
+      padding: 15px 30px;
+    }
   }
+
   a {
     color: rgba(255, 255, 255, .8);
     line-height: 24px;
@@ -146,22 +156,34 @@ a {
     font-weight: 300;
     letter-spacing: .075em;
     margin-right: 1.8em;
+
+    @media (max-width: 600px) {
+      margin-right: 1em;
+    }
+
     &:hover {
       color: #fff;
     }
+
     &.router-link-active {
       color: #fff;
       font-weight: 400;
     }
+
     &:nth-child(6) {
       margin-right: 0;
     }
   }
+
   .github {
     color: #fff;
     font-size: .9em;
     margin: 0;
     float: right;
+
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
 }
 
@@ -178,31 +200,13 @@ a {
   position: relative;
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: all .2s ease;
 }
 
-.fade-enter, .fade-leave-active {
+.fade-enter,
+.fade-leave-active {
   opacity: 0;
-}
-
-@media (max-width: 860px) {
-  .header .inner {
-    padding: 15px 30px;
-  }
-}
-
-@media (max-width: 600px) {
-  .header {
-    .inner {
-      padding: 15px;
-    }
-    a {
-      margin-right: 1em;
-    }
-    .github {
-      display: none;
-    }
-  }
 }
 </style>
