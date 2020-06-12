@@ -48,7 +48,7 @@ export default {
   name: 'Comment',
   props: {
     id: {
-      type: String,
+      type: Number,
       required: true,
     },
   },
