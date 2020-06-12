@@ -16,9 +16,7 @@
 </template>
 
 <script>
-import {
-  ref, computed, watch, onBeforeUnmount,
-} from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useStore } from 'vuex';
 import { useRoute, useRouter } from 'vue-router';
 import { watchList } from '../api';
@@ -48,20 +46,18 @@ export default {
     const maxPage = computed(() => Math.ceil(state.lists[type.value].length / state.itemsPerPage) || 1);
     const hasMore = computed(() => page.value < maxPage.value);
 
-    const unwatchList = watchList(type.value, (ids) => {
-      commit('SET_LIST', { type: type.value, ids });
-      dispatch('ENSURE_ACTIVE_ITEMS');
-    });
+    watch([page, type], ([to, currentType], [from = -1], onInvalidate) => {
+      const unwatchList = watchList(currentType, (ids) => {
+        commit('SET_LIST', { type: currentType, ids });
+        dispatch('ENSURE_ACTIVE_ITEMS');
+      });
 
-    onBeforeUnmount(() => unwatchList());
-
-    watch(page, (to = page.value, from = -1) => {
       dispatch('FETCH_LIST_DATA', {
-        type: type.value,
+        type: currentType,
       }).then(() => {
         if (page.value < 0 || page.value > maxPage.value) {
           replace({
-            name: type.value,
+            name: currentType,
             params: { page: 1 },
           });
           return;
@@ -71,6 +67,8 @@ export default {
           ? null
           : to > from ? 'slide-left' : 'slide-right';
       });
+
+      onInvalidate(() => unwatchList());
     });
 
     await dispatch('FETCH_LIST_DATA', { type: type.value });
