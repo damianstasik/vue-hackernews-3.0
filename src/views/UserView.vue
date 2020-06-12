@@ -36,20 +36,18 @@ export default {
     const { params } = useRoute();
     const user = computed(() => state.users[params.id]);
 
-    onMounted(() => {
-      dispatch('FETCH_USER', { id: params.id });
+    onMounted(async () => {
+      await dispatch('FETCH_USER', { id: params.id });
+
+      document.title = user.value
+        ? user.value.id
+        : 'User not found';
     });
 
     return {
       timeAgo,
       user,
     };
-  },
-
-  title() {
-    return this.user
-      ? this.user.id
-      : 'User not found';
   },
 };
 </script>

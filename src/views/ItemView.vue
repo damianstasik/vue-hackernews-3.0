@@ -51,10 +51,13 @@ import Comment from '../components/Comment.vue';
 import { timeAgo, getHost } from '../util/filters';
 
 // recursively fetch all descendent comments
+// eslint-disable-next-line consistent-return
 function fetchComments(store, item) {
-  return store.dispatch('FETCH_ITEMS', {
-    ids: item.kids,
-  }).then(() => Promise.all(item.kids.map((id) => fetchComments(store, store.state.items[id]))));
+  if (item && item.kids) {
+    return store.dispatch('FETCH_ITEMS', {
+      ids: item.kids,
+    }).then(() => Promise.all(item.kids.map((id) => fetchComments(store, store.state.items[id]))));
+  }
 }
 
 export default {
@@ -76,15 +79,13 @@ export default {
     item: 'fetchComments',
   },
 
-  mounted() {
+  async mounted() {
     const { params: { id } } = this.$route;
-    this.$store.dispatch('FETCH_ITEMS', { ids: [id] });
+    await this.$store.dispatch('FETCH_ITEMS', { ids: [id] });
+
+    document.title = this.item.title;
 
     this.fetchComments();
-  },
-
-  title() {
-    return this.item.title;
   },
 
   methods: {
