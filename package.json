@@ -12,20 +12,20 @@
     "npm": ">=4.0"
   },
   "dependencies": {
-    "@firebase/app": "^0.6.6",
-    "@firebase/database": "^0.6.5",
-    "vue": "^3.0.0-beta.15",
-    "vue-router": "^4.0.0-alpha.13",
-    "vuex": "^4.0.0-beta.2",
+    "@firebase/app": "^0.6.7",
+    "@firebase/database": "^0.6.6",
+    "vue": "^3.0.0-beta.17",
+    "vue-router": "^4.0.0-alpha.14",
+    "vuex": "^4.0.0-beta.4",
     "vuex-router-sync": "^5.0.0"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.0.0-beta.15",
+    "@vue/compiler-sfc": "^3.0.0-beta.17",
     "babel-eslint": "^10.1.0",
     "eslint": "7.3.1",
     "eslint-config-airbnb-base": "14.2.0",
-    "eslint-plugin-import": "^2.21.2",
-    "eslint-plugin-vue": "^7.0.0-alpha.6",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-vue": "^7.0.0-alpha.8",
     "sass": "^1.26.9",
     "vite": "^1.0.0-beta.8"
   }
